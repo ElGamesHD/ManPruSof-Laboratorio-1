@@ -57,7 +57,7 @@ public class GrupoTest {
         String actividad = "Actividad1";
         int nplazas = 5;
         int matriculados = 10;
-        double tarifa = 0.0;
+        double tarifa = 5.0;
 
         assertThrows(ClubException.class, () -> {
             new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
@@ -69,9 +69,9 @@ public class GrupoTest {
     public void getCodigo_OnInit_ReturnsCodigo() throws ClubException {
         String codigo = "Grupo1";
         String actividad = "Actividad1";
-        int nplazas = 5;
-        int matriculados = 10;
-        double tarifa = 0.0;
+        int nplazas = 10;
+        int matriculados = 5;
+        double tarifa = 5.0;
 
         Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
 
