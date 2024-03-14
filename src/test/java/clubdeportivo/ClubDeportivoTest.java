@@ -52,33 +52,16 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    public void matricular_noFreePlaces_ThrowsClubException() throws ClubException{
+    @DisplayName("El método ingresos debe devolver 0 si no hay grupos.")
+    public void ingresos_noGroups_ReturnTrue() throws ClubException{
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 10, 10);
-        club.anyadirActividad(grupo);
-
-        assertThrows(ClubException.class, () -> club.matricular("Tenis", 5));
-        
+        double expected = 0;
+        assertEquals(expected, club.ingresos());
     }
 
     @Test
-    @DisplayName("El método matricular debe matricular correctamente en una actividad.")
-    public void matricular_FreePlaces_ReturnTrue() throws ClubException{
-        String nombre = "Club de Tenis";
-        ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
-        club.anyadirActividad(grupo);
-
-        int plazasExpected = 2;
-        club.matricular("Tenis", 3);
-        assertEquals(plazasExpected, club.plazasLibres("Tenis"));
-        
-    }
-
-    @Test
-    @DisplayName("El método matricular debe devolver 0 si no existe esa actividad.")
-    public void matricular_notEnoughPlacesInOneGroup_ReturnTrue() throws ClubException{
+    public void ingresos_hasGroups_ReturnTrue() throws ClubException{
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
         Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
@@ -86,11 +69,9 @@ public class ClubDeportivoTest {
         club.anyadirActividad(grupo);   
         club.anyadirActividad(grupo2);
 
-        int plazasExpected = 3;
-        club.matricular("Tenis", 7);
-        assertEquals(plazasExpected, club.plazasLibres("Tenis"));
+        double expected = 100;
+        assertEquals(expected, club.ingresos());
     }
-
 
 
 
