@@ -69,6 +69,9 @@ public class GrupoTest {
         });
     }
 
+    // Falta test de que el grupo se cree correctamente, no sé si esto se hace con
+    // assert not throws o con el toString o que
+
     @ParameterizedTest
     @CsvSource({
             "10, 5, 5",
