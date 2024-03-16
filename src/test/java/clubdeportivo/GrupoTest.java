@@ -69,8 +69,22 @@ public class GrupoTest {
         });
     }
 
-    // Falta test de que el grupo se cree correctamente, no sé si esto se hace con
-    // assert not throws o con el toString o que
+    @Test
+    @DisplayName("Inicializar un grupo con valores validos, lo crea correctamente")
+    public void Grupo_ValidValues_Successfull() throws ClubException {
+        String codigo = "Grupo1";
+        String actividad = "Actividad1";
+        int nplazas = 15;
+        int matriculados = 10;
+        double tarifa = 5.0;
+        Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
+        String expectedString = "(" + codigo + " - " + actividad + " - " + tarifa + " euros " + "- P:" + nplazas
+                + " - M:" + matriculados + ")";
+
+        String toString = grupo.toString();
+
+        assertEquals(expectedString, toString);
+    }
 
     @ParameterizedTest
     @CsvSource({

@@ -6,15 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-/* DUDAS */
-// Hay que probar para esta clase todo lo mismo que se prueba para la clase "ClubDeportivo"?
-// Hay que probar los métodos que no están aqui pero si en ClubDeportivo?
-// Hay que probar las cosas que hacen los constructores al llamarse con super()?
-
-// Probar con toString si ha ido bien
-// Tener un before each y tener que a veces crear otro a pesar del before each
-// En vez de muchos parametros en la funcion que se haga con CSVSourcey parametrized test
-// Test con muchisimos argumentos
 public class ClubDeportivoAltoRendimientoTest {
 
     @Test
@@ -44,11 +35,6 @@ public class ClubDeportivoAltoRendimientoTest {
     @Test
     @DisplayName("Inicializar un club deportivo con valores validos, lo crea correctamente")
     public void ClubDeportivoAltoRendimiento_ValidValues_Successfull() throws ClubException {
-        /*
-         * 
-         * no sé si esto se hace con assert not throws o con el toString
-         * 
-         */
         String nombre = "ClubAltoRendimiento1";
         int maximo = 5;
         double incremento = 1.0;
@@ -63,12 +49,6 @@ public class ClubDeportivoAltoRendimientoTest {
     @Test
     @DisplayName("Inicializar un club deportivo de alto rendimiento con un maximo menor o igual a cero, lanza un error")
     public void ClubDeportivoAltoRendimientoTam_MaximoLessThanOrEqualZero_ThrowsError() {
-        /*
-         * 
-         * NO SÉ SI ESTÁ BIEN
-         * Esto hay que hacerlo asi? Es el mismo constructor pero con un parámetro más
-         * 
-         */
         String nombre = "ClubAltoRendimiento1";
         int tam = 10;
         int maximo = 0;
@@ -82,12 +62,6 @@ public class ClubDeportivoAltoRendimientoTest {
     @Test
     @DisplayName("Inicializar un club deportivo de alto rendimiento con un incremento menor o igual a cero, lanza un error")
     public void ClubDeportivoAltoRendimientoTam_IncrementoLessThanOrEqualZero_ThrowsError() {
-        /*
-         * 
-         * NO SÉ SI ESTÁ BIEN
-         * Esto hay que hacerlo asi? Es el mismo constructor pero con un parámetro más
-         * 
-         */
         String nombre = "ClubAltoRendimiento1";
         int tam = 10;
         int maximo = 1;
@@ -101,17 +75,6 @@ public class ClubDeportivoAltoRendimientoTest {
     @Test
     @DisplayName("Inicializar un club deportivo con valores validos, lo crea correctamente")
     public void ClubDeportivoAltoRendimientoTam_ValidValues_Successfull() throws ClubException {
-        /*
-         * 
-         * NO SÉ SI ESTÁ BIEN
-         * Esto hay que hacerlo asi? Es el mismo constructor pero con un parámetro más
-         * 
-         */
-        /*
-         * 
-         * no sé si esto se hace con assert not throws o con el toString
-         * 
-         */
         String nombre = "ClubAltoRendimiento1";
         int tam = 10;
         int maximo = 5;
