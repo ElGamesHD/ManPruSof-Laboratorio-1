@@ -48,7 +48,7 @@ public class ClubDeportivoAnyadirActividadTest {
     }
 
     @Test
-    @DisplayName("El método anyadirActividad debe crear y añadir correctamente el grupo al club deportivo.")
+    @DisplayName("El método anyadirActividad debe modificar la plazas del grupo ya existente.")
     public void anyadirActividad_existingGroup_ReturnTrue() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
@@ -58,5 +58,25 @@ public class ClubDeportivoAnyadirActividadTest {
         club.anyadirActividad(grupo2);
         String exectedString = nombre + " --> [ (D4 - Tenis - 10.0 euros - P:15 - M:5) ]";
         assertEquals(club.toString(), exectedString);
+    }
+
+    @Test
+    @DisplayName("El método anyadirActividad debe lanzar una excepción si el número de datos no es correcto.")
+    public void anyadirActividad_MoreData_ReturnClubException() throws ClubException{
+        String nombre = "Club Alfarfa";
+        ClubDeportivo club = new ClubDeportivo(nombre);
+        String[] datos = {"D4","Tenis", "10", "5", "10", "10"};
+
+        assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
+    }
+
+    @Test
+    @DisplayName("El método anyadirActividad debe lanzar una excepción si los datos son nulos.")
+    public void anyadirActividad_noData_ReturnClubException() throws ClubException{
+        String nombre = "Club Alfarfa";
+        ClubDeportivo club = new ClubDeportivo(nombre);
+        String[] datos = null;
+
+        assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
     }
 }

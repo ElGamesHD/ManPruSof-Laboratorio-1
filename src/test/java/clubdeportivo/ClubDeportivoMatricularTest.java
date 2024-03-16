@@ -63,6 +63,28 @@ public class ClubDeportivoMatricularTest {
     }
 
     @Test
+    @DisplayName("El método matricular debe lanzar una excepción si la actividad es nula.")
+    public void matricular_ActivityNull_ThrowsClubException() throws ClubException{
+        String nombre = "Club de Tenis";
+        ClubDeportivo club = new ClubDeportivo(nombre);
+        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
+        club.anyadirActividad(grupo);
+
+        assertThrows(ClubException.class, () -> club.matricular(null, 5));
+    }
+
+    @Test 
+    @DisplayName("El método matricular debe lanzar una excepción si el número de personas es negativo.")
+    public void matricular_NegativePeople_ThrowsClubException() throws ClubException{
+        String nombre = "Club de Tenis";
+        ClubDeportivo club = new ClubDeportivo(nombre);
+        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
+        club.anyadirActividad(grupo);
+
+        assertThrows(ClubException.class, () -> club.matricular("Tenis", -5));
+    }
+
+    @Test
     @DisplayName("El método matricular debe matricular en la actividad correcta.")
     public void matricular_goodDataWithTwoGroups_ReturnTrue() throws ClubException{
         String nombre = "Club de Tenis";

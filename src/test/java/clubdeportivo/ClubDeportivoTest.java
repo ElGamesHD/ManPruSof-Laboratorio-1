@@ -28,6 +28,12 @@ public class ClubDeportivoTest {
     }
 
     @Test
+    @DisplayName("El constructor de ClubDeportivo debe lanzar una excepción si el nombre es nulo.")
+    public void ClubDeportivo_nullName_ThrowsClubException() {
+        assertThrows(ClubException.class, () -> new ClubDeportivo(null));
+    }
+
+    @Test
     @DisplayName("El método plazasLibres debe devolver correctamente las plazas libres de una actividad.")
     public void plazasLibres_existsActivity_ReturnTrue() throws ClubException{
         String nombre = "Club de Tenis";
@@ -49,6 +55,16 @@ public class ClubDeportivoTest {
 
         int plazasExpected = 0;
         assertEquals(plazasExpected, club.plazasLibres("Futbol"));
+    }
+
+    @Test
+    public void plazasLibres_activityNull_ThrowsClubException() throws ClubException{
+        String nombre = "Club de Tenis";
+        ClubDeportivo club = new ClubDeportivo(nombre);
+        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
+        club.anyadirActividad(grupo);
+
+        assertThrows(ClubException.class, () -> club.plazasLibres(null));
     }
 
     @Test
