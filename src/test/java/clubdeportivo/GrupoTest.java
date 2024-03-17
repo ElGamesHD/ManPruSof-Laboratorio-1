@@ -281,4 +281,38 @@ public class GrupoTest {
 
         assertNotEquals(hashCode1, hashCode2);
     }
+
+    /*
+     * De error arreglado
+     */
+    @Test
+    @DisplayName("Crear un grupo con codigo nulo lanza un error")
+    public void Grupo_CodigoNull_ThrowsError() {
+        String codigo = null;
+        String actividad = "Actividad1";
+        int nplazas = 10;
+        int matriculados = 5;
+        double tarifa = 5.0;
+
+        assertThrows(ClubException.class, () -> {
+            new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
+        });
+    }
+
+    /*
+     * De error arreglado
+     */
+    @Test
+    @DisplayName("Crear un grupo con actividad nula lanza un error")
+    public void Grupo_ActividadNull_ThrowsError() {
+        String codigo = "Grupo1";
+        String actividad = null;
+        int nplazas = 10;
+        int matriculados = 5;
+        double tarifa = 5.0;
+
+        assertThrows(ClubException.class, () -> {
+            new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
+        });
+    }
 }

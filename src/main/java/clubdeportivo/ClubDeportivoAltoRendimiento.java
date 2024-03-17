@@ -22,14 +22,19 @@ public class ClubDeportivoAltoRendimiento extends ClubDeportivo {
 		this.incremento = incremento;
 	}
 
+	/*
+	 * El datos.length debería estar en el try por si datos es nulo.
+	 * Lo metemos dentro
+	 */
 	// El club de alto rendimiento tiene limitadas las plazas. Si el número de
 	// plazas que se recibe como parametro es mayor que el permitido,
 	// se establece su valor al maximo permitido por grupo para el club.
 	public void anyadirActividad(String[] datos) throws ClubException {
-		if (datos.length < 5) {
-			throw new ClubException("ERROR: faltan datos");
-		}
 		try {
+			if (datos.length < 5) {
+				throw new ClubException("ERROR: faltan datos");
+			}
+
 			int plazas = Integer.parseInt(datos[2]);
 			int matriculados = Integer.parseInt(datos[3]);
 			double tarifa = Double.parseDouble(datos[4]);
@@ -40,6 +45,8 @@ public class ClubDeportivoAltoRendimiento extends ClubDeportivo {
 			super.anyadirActividad(g);
 		} catch (NumberFormatException e) {
 			throw new ClubException("ERROR: formato de número incorrecto");
+		} catch (NullPointerException e) {
+			throw new ClubException("ERROR: el conjunto de datos es nulo");
 		}
 	}
 

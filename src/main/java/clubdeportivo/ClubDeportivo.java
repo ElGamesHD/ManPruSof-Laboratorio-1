@@ -12,11 +12,13 @@ public class ClubDeportivo {
 		this(nombre, TAM);
 	}
 
-	/*Se debería comprobar que el nombre no sea nulo, por lo que añadimos una sentencia IF que
+	/*
+	 * Se debería comprobar que el nombre no sea nulo, por lo que añadimos una
+	 * sentencia IF que
 	 * cuando reciba un nombre nulo lance una excepción.
-	 */	
+	 */
 	public ClubDeportivo(String nombre, int n) throws ClubException {
-		if(nombre == null){
+		if (nombre == null) {
 			throw new ClubException("ERROR: el nombre del club no puede ser nulo");
 		}
 
@@ -38,19 +40,22 @@ public class ClubDeportivo {
 		return i;
 	}
 
-	/*Se debería comprobar que el tamaño del String que se pase por párametro sea el necsitado,
-	 * es decir, que tenga 5 elementos. Si no es así, se debería lanzar una excepción.
+	/*
+	 * Se debería comprobar que el tamaño del String que se pase por párametro sea
+	 * el necsitado,
+	 * es decir, que tenga 5 elementos. Si no es así, se debería lanzar una
+	 * excepción.
 	 * Añadimos el primer if para comprobar que el tamaño del array sea el correcto.
 	 * 
 	 * Otra cosa que se debería comprobar es que el parámetro no sea nulo, por lo
-	 * que añadimos una sentencia catch que cuando reciba un nullPointerException 
+	 * que añadimos una sentencia catch que cuando reciba un nullPointerException
 	 * lance una excepción.
 	 */
 
 	public void anyadirActividad(String[] datos) throws ClubException {
 		try {
-			if(datos.length != 5){
-				throw new ClubException("ERROR: el número de datos no es correcto");
+			if (datos.length < 5) {
+				throw new ClubException("ERROR: faltan datos");
 			}
 
 			int plazas = Integer.parseInt(datos[2]);
@@ -60,13 +65,13 @@ public class ClubDeportivo {
 			anyadirActividad(g);
 		} catch (NumberFormatException e) {
 			throw new ClubException("ERROR: formato de número incorrecto");
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			throw new ClubException("ERROR: el conjunto de datos es nulo");
 		}
 	}
 
 	public void anyadirActividad(Grupo g) throws ClubException {
-		if (g==null){ // ADDME: anaydido para comprobar los grupos nulos
+		if (g == null) { // ADDME: anaydido para comprobar los grupos nulos
 			throw new ClubException("ERROR: el grupo es nulo");
 		}
 		int pos = buscar(g);
@@ -78,12 +83,14 @@ public class ClubDeportivo {
 		}
 	}
 
-	/*Se debería comprobar que el nombre de la actividad no sea nulo, por lo que añadimos una sentencia IF que
+	/*
+	 * Se debería comprobar que el nombre de la actividad no sea nulo, por lo que
+	 * añadimos una sentencia IF que
 	 * cuando reciba un nombre nulo lance una excepción.
 	 */
 
 	public int plazasLibres(String actividad) throws ClubException {
-		if(actividad == null){
+		if (actividad == null) {
 			throw new ClubException("ERROR: la actividad no puede ser nula");
 		}
 
@@ -98,19 +105,22 @@ public class ClubDeportivo {
 		return p;
 	}
 
-	/*Se debería comprobar que el nombre de la actividad no sea nulo, por lo que añadimos una sentencia IF que
+	/*
+	 * Se debería comprobar que el nombre de la actividad no sea nulo, por lo que
+	 * añadimos una sentencia IF que
 	 * cuando reciba un nombre nulo lance una excepción.
 	 * 
-	 * Se debería comprobar que el número de personas no sea negativo, por lo que añadimos una sentencia IF que
+	 * Se debería comprobar que el número de personas no sea negativo, por lo que
+	 * añadimos una sentencia IF que
 	 * cuando reciba un número negativo lance una excepción.
 	 */
 
 	public void matricular(String actividad, int npersonas) throws ClubException {
-		if(actividad == null){
+		if (actividad == null) {
 			throw new ClubException("ERROR: la actividad no puede ser nula");
 		}
 
-		if(npersonas < 0){
+		if (npersonas < 0) {
 			throw new ClubException("ERROR: el numero de personas para matricular no debe ser negativo");
 		}
 
