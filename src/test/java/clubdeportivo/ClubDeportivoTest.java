@@ -1,9 +1,7 @@
 package clubdeportivo;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +17,14 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("El constructor de ClubDeportivo debe lanzar una excepción si el número de grupos es 0 o negativo.")
+    @DisplayName("El constructor de ClubDeportivo debe lanzar una excepción si el número de grupos 0.")
+    public void ClubDeportivo_NumberGroupZero_ThrowsClubException() throws ClubException{
+        String nombre = "Club de Tenis";
+        assertThrows(ClubException.class, () -> new ClubDeportivo(nombre, 0));
+    }
+
+    @Test
+    @DisplayName("El constructor de ClubDeportivo debe crear correctamente el club deportivo.")
     public void ClubDeportivo_CorrectNumberGroup_ReturnTrue() throws ClubException{
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
@@ -77,6 +82,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
+    @DisplayName("El método ingresos debe devolver la suma de los ingresos de los grupos.")
     public void ingresos_hasGroups_ReturnTrue() throws ClubException{
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
@@ -88,7 +94,5 @@ public class ClubDeportivoTest {
         double expected = 100;
         assertEquals(expected, club.ingresos());
     }
-
-
 
 }
