@@ -17,14 +17,14 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("El constructor de ClubDeportivo debe lanzar una excepción si el número de grupos es negativo.")
+    @DisplayName("El constructor de ClubDeportivo debe lanzar una excepción si el número de grupos 0.")
     public void ClubDeportivo_NumberGroupZero_ThrowsClubException() throws ClubException{
         String nombre = "Club de Tenis";
         assertThrows(ClubException.class, () -> new ClubDeportivo(nombre, 0));
     }
 
     @Test
-    @DisplayName("El constructor de ClubDeportivo debe lanzar una excepción si el número de grupos es 0 o negativo.")
+    @DisplayName("El constructor de ClubDeportivo debe crear correctamente el club deportivo.")
     public void ClubDeportivo_CorrectNumberGroup_ReturnTrue() throws ClubException{
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
