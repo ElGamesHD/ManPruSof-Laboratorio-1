@@ -16,6 +16,8 @@ public class ClubDeportivo {
 	 * Se debería comprobar que el nombre no sea nulo, por lo que añadimos una
 	 * sentencia IF que
 	 * cuando reciba un nombre nulo lance una excepción.
+	 * 
+	 * Error no se inicializa ngrupos
 	 */
 	public ClubDeportivo(String nombre, int n) throws ClubException {
 		if (nombre == null) {
@@ -25,6 +27,7 @@ public class ClubDeportivo {
 		if (n <= 0) {
 			throw new ClubException("ERROR: el club no puede crearse con un número de grupos 0 o negativo");
 		}
+		this.ngrupos = 0;
 		this.nombre = nombre;
 		grupos = new Grupo[n];
 	}
@@ -70,7 +73,13 @@ public class ClubDeportivo {
 		}
 	}
 
+	/*
+	 * Desbordamiento de array
+	 */
 	public void anyadirActividad(Grupo g) throws ClubException {
+		if (ngrupos == grupos.length) {
+			throw new ClubException("ERROR: el club está lleno");
+		}
 		if (g == null) { // ADDME: anaydido para comprobar los grupos nulos
 			throw new ClubException("ERROR: el grupo es nulo");
 		}
@@ -113,6 +122,8 @@ public class ClubDeportivo {
 	 * Se debería comprobar que el número de personas no sea negativo, por lo que
 	 * añadimos una sentencia IF que
 	 * cuando reciba un número negativo lance una excepción.
+	 * 
+	 * el cero
 	 */
 
 	public void matricular(String actividad, int npersonas) throws ClubException {
