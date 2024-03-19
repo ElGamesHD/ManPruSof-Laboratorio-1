@@ -120,7 +120,7 @@ public class ClubDeportivo {
 			throw new ClubException("ERROR: la actividad no puede ser nula");
 		}
 
-		if (npersonas < 0) {
+		if (npersonas <= 0) {
 			throw new ClubException("ERROR: el numero de personas para matricular no debe ser negativo");
 		}
 
@@ -137,6 +137,7 @@ public class ClubDeportivo {
 					npersonas -= plazasGrupo;
 				} else {
 					grupos[i].matricular(npersonas);
+					npersonas = 0;
 				}
 			}
 			i++;

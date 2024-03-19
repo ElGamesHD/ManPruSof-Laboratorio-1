@@ -57,8 +57,21 @@ public class ClubDeportivoMatricularTest {
         Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
         club.anyadirActividad(grupo);
 
-        int plazasExpected = club.plazasLibres("Tenis");
-        club.matricular("Tenis", 0);
+        assertThrows(ClubException.class, () -> club.matricular("Tenis", 0));
+    }
+
+    @Test
+    @DisplayName("El método matricular debe no debe matricular si no hay personas para matricular.")
+    public void matricular_TwoGroupsOnlyUseOne_ReturnTrue() throws ClubException{
+        String nombre = "Club de Tenis";
+        ClubDeportivo club = new ClubDeportivo(nombre);
+        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
+        Grupo grupo2 = new Grupo("D3","Tenis", 10, 5, 10);
+        club.anyadirActividad(grupo);
+        club.anyadirActividad(grupo2);
+
+        int plazasExpected = 7;
+        club.matricular("Tenis", 3);
         assertEquals(plazasExpected, club.plazasLibres("Tenis"));
     }
 
