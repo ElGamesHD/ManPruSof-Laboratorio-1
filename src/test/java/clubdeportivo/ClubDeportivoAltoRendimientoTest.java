@@ -1,3 +1,8 @@
+/**
+ * @author Eulogio Quemada Torres
+ * @author Alejandro Román Sánchez
+ */
+
 package clubdeportivo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

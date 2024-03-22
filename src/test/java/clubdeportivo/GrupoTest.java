@@ -1,3 +1,8 @@
+/**
+ * @author Eulogio Quemada Torres
+ * @author Alejandro Román Sánchez
+ */
+
 package clubdeportivo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -282,9 +287,6 @@ public class GrupoTest {
         assertNotEquals(hashCode1, hashCode2);
     }
 
-    /*
-     * De error arreglado
-     */
     @Test
     @DisplayName("Crear un grupo con codigo nulo lanza un error")
     public void Grupo_CodigoNull_ThrowsError() {
@@ -299,9 +301,6 @@ public class GrupoTest {
         });
     }
 
-    /*
-     * De error arreglado
-     */
     @Test
     @DisplayName("Crear un grupo con actividad nula lanza un error")
     public void Grupo_ActividadNull_ThrowsError() {

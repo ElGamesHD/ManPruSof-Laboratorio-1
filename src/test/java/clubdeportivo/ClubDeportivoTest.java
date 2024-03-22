@@ -1,3 +1,8 @@
+/**
+ * @author Eulogio Quemada Torres
+ * @author Alejandro Román Sánchez
+ */
+
 package clubdeportivo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,25 +15,29 @@ public class ClubDeportivoTest {
 
     @Test
     @DisplayName("El constructor de ClubDeportivo debe lanzar una excepción si el número de grupos es negativo.")
-    public void ClubDeportivo_NegativeNumberGroup_ThrowsClubException() throws ClubException {
+    public void ClubDeportivo_NegativeNumberGroup_ThrowsError() throws ClubException {
         String nombre = "Club de Tenis";
         int numberGroup = -5;
 
-        assertThrows(ClubException.class, () -> new ClubDeportivo(nombre, numberGroup));
+        assertThrows(ClubException.class, () -> {
+            new ClubDeportivo(nombre, numberGroup);
+        });
     }
 
     @Test
     @DisplayName("El constructor de ClubDeportivo debe lanzar una excepción si el número de grupos 0.")
-    public void ClubDeportivo_NumberGroupZero_ThrowsClubException() throws ClubException {
+    public void ClubDeportivo_NumberGroupZero_ThrowsError() throws ClubException {
         String nombre = "Club de Tenis";
         int numberGroup = 0;
 
-        assertThrows(ClubException.class, () -> new ClubDeportivo(nombre, numberGroup));
+        assertThrows(ClubException.class, () -> {
+            new ClubDeportivo(nombre, numberGroup);
+        });
     }
 
     @Test
     @DisplayName("El constructor de ClubDeportivo debe crear correctamente el club deportivo.")
-    public void ClubDeportivo_CorrectNumberGroup_ReturnTrue() throws ClubException {
+    public void ClubDeportivo_CorrectNumberGroup_Success() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
         String expectedString = nombre + " --> [  ]";
@@ -40,25 +49,24 @@ public class ClubDeportivoTest {
 
     @Test
     @DisplayName("El constructor de ClubDeportivo debe lanzar una excepción si el nombre es nulo.")
-    public void ClubDeportivo_nullName_ThrowsClubException() {
+    public void ClubDeportivo_NullName_ThrowsError() {
         String nombre = null;
 
-        assertThrows(ClubException.class, () -> new ClubDeportivo(nombre));
+        assertThrows(ClubException.class, () -> {
+            new ClubDeportivo(nombre);
+        });
     }
 
     @Test
     @DisplayName("El método plazasLibres debe devolver correctamente las plazas libres de una actividad.")
-    public void plazasLibres_existsActivity_ReturnTrue() throws ClubException {
-        String nombre = "Club de Tenis";
-        ClubDeportivo club = new ClubDeportivo(nombre);
-        String codigo = "D4";
+    public void plazasLibres_ExistsActivity_ReturnsExpectedResult() throws ClubException {
+        ClubDeportivo club = new ClubDeportivo("Club de Tenis");
         String actividad = "Tenis";
-        int precio = 10;
-        int plazas = 5;
         int maxPlazas = 10;
-        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
+        int plazas = 5;
+        Grupo grupo = new Grupo("D4", actividad, maxPlazas, plazas, 10.0);
         club.anyadirActividad(grupo);
-        int plazasExpected = 5;
+        int plazasExpected = maxPlazas - plazas;
 
         int plazasLibres = club.plazasLibres(actividad);
 
@@ -67,18 +75,12 @@ public class ClubDeportivoTest {
 
     @Test
     @DisplayName("El método plazasLibres debe devolver 0 si no existe la actividad.")
-    public void plazasLibres_notExistsActivity_ReturnTrue() throws ClubException {
-        String nombre = "Club de Tenis";
-        ClubDeportivo club = new ClubDeportivo(nombre);
-        String codigo = "D4";
-        String actividad = "Tenis";
-        int precio = 10;
-        int plazas = 5;
-        int maxPlazas = 10;
-        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
+    public void plazasLibres_NotExistsActivity_ReturnsZero() throws ClubException {
+        ClubDeportivo club = new ClubDeportivo("Club de Tenis");
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10.0);
         club.anyadirActividad(grupo);
-        int plazasExpected = 0;
         String actividadNoExiste = "Futbol";
+        int plazasExpected = 0;
 
         int plazasLibres = club.plazasLibres(actividadNoExiste);
 
@@ -86,26 +88,21 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    public void plazasLibres_activityNull_ThrowsClubException() throws ClubException {
-        String nombre = "Club de Tenis";
-        ClubDeportivo club = new ClubDeportivo(nombre);
-        String actividad = "Tenis";
-        String codigo = "D4";
-        int precio = 10;
-        int plazas = 5;
-        int maxPlazas = 10;
-        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
+    public void plazasLibres_ActivityNull_ThrowsError() throws ClubException {
+        ClubDeportivo club = new ClubDeportivo("Club de Tenis");
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10.0);
         club.anyadirActividad(grupo);
         String actividadNull = null;
 
-        assertThrows(ClubException.class, () -> club.plazasLibres(actividadNull));
+        assertThrows(ClubException.class, () -> {
+            club.plazasLibres(actividadNull);
+        });
     }
 
     @Test
     @DisplayName("El método ingresos debe devolver 0 si no hay grupos.")
-    public void ingresos_noGroups_ReturnTrue() throws ClubException {
-        String nombre = "Club de Tenis";
-        ClubDeportivo club = new ClubDeportivo(nombre);
+    public void ingresos_NoGroups_ReturnsZero() throws ClubException {
+        ClubDeportivo club = new ClubDeportivo("Club de Tenis");
         double expected = 0;
 
         double ingresos = club.ingresos();
@@ -115,24 +112,19 @@ public class ClubDeportivoTest {
 
     @Test
     @DisplayName("El método ingresos debe devolver la suma de los ingresos de los grupos.")
-    public void ingresos_hasGroups_ReturnTrue() throws ClubException {
-        String nombre = "Club de Tenis";
-        ClubDeportivo club = new ClubDeportivo(nombre);
-        String codigo = "D4";
-        String actividad = "Tenis";
+    public void ingresos_HasGroups_ReturnsExpectedResult() throws ClubException {
+        ClubDeportivo club = new ClubDeportivo("Club de Tenis");
         int precio = 10;
         int plazas = 5;
         int maxPlazas = 10;
-        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
-        String codigo2 = "D5";
-        String actividad2 = "Tenis";
-        int precio2 = 10;
-        int plazas2 = 5;
+        Grupo grupo = new Grupo("D4", "Tenis", maxPlazas, plazas, precio);
+        int precio2 = 15;
+        int plazas2 = 4;
         int maxPlazas2 = 10;
-        Grupo grupo2 = new Grupo(codigo2, actividad2, maxPlazas2, plazas2, precio2);
+        Grupo grupo2 = new Grupo("D5", "Tenis", maxPlazas2, plazas2, precio2);
         club.anyadirActividad(grupo);
         club.anyadirActividad(grupo2);
-        double expected = 100;
+        double expected = 110;
 
         double ingresos = club.ingresos();
 

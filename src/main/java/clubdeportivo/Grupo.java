@@ -1,9 +1,9 @@
-package clubdeportivo;
-
-/*
- * DUDA En el segundo error del constructor pone MENORES O IGUALES A CERO
- * pero para matriculados solo pone < 0, es eso un error?
+/**
+ * @author Eulogio Quemada Torres
+ * @author Alejandro Román Sánchez
  */
+
+package clubdeportivo;
 
 public class Grupo {
 	private String codigo;
@@ -12,11 +12,6 @@ public class Grupo {
 	private int nmatriculados;
 	private double tarifa;
 
-	/*
-	 * Se debería comprobar que el el código no sea nulo, al igual que con la
-	 * actividad.
-	 * Añadimos la comprobación mediante una sentencia if.
-	 */
 	public Grupo(String codigo, String actividad, int nplazas, int matriculados, double tarifa) throws ClubException {
 		if (codigo == null || actividad == null) {
 			throw new ClubException("ERROR: las cadenas de carácteres no pueden ser nulas");

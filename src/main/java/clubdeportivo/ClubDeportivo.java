@@ -1,3 +1,8 @@
+/**
+ * @author Eulogio Quemada Torres
+ * @author Alejandro Román Sánchez
+ */
+
 package clubdeportivo;
 
 import java.util.StringJoiner;
@@ -12,18 +17,10 @@ public class ClubDeportivo {
 		this(nombre, TAM);
 	}
 
-	/*
-	 * Se debería comprobar que el nombre no sea nulo, por lo que añadimos una
-	 * sentencia IF que
-	 * cuando reciba un nombre nulo lance una excepción.
-	 * 
-	 * Error no se inicializa ngrupos
-	 */
 	public ClubDeportivo(String nombre, int n) throws ClubException {
 		if (nombre == null) {
 			throw new ClubException("ERROR: el nombre del club no puede ser nulo");
 		}
-
 		if (n <= 0) {
 			throw new ClubException("ERROR: el club no puede crearse con un número de grupos 0 o negativo");
 		}
@@ -43,24 +40,11 @@ public class ClubDeportivo {
 		return i;
 	}
 
-	/*
-	 * Se debería comprobar que el tamaño del String que se pase por párametro sea
-	 * el necsitado,
-	 * es decir, que tenga 5 elementos. Si no es así, se debería lanzar una
-	 * excepción.
-	 * Añadimos el primer if para comprobar que el tamaño del array sea el correcto.
-	 * 
-	 * Otra cosa que se debería comprobar es que el parámetro no sea nulo, por lo
-	 * que añadimos una sentencia catch que cuando reciba un nullPointerException
-	 * lance una excepción.
-	 */
-
 	public void anyadirActividad(String[] datos) throws ClubException {
 		try {
 			if (datos.length < 5) {
 				throw new ClubException("ERROR: faltan datos");
 			}
-
 			int plazas = Integer.parseInt(datos[2]);
 			int matriculados = Integer.parseInt(datos[3]);
 			double tarifa = Double.parseDouble(datos[4]);
@@ -73,9 +57,6 @@ public class ClubDeportivo {
 		}
 	}
 
-	/*
-	 * Desbordamiento de array
-	 */
 	public void anyadirActividad(Grupo g) throws ClubException {
 		if (ngrupos == grupos.length) {
 			throw new ClubException("ERROR: el club está lleno");
@@ -92,17 +73,10 @@ public class ClubDeportivo {
 		}
 	}
 
-	/*
-	 * Se debería comprobar que el nombre de la actividad no sea nulo, por lo que
-	 * añadimos una sentencia IF que
-	 * cuando reciba un nombre nulo lance una excepción.
-	 */
-
 	public int plazasLibres(String actividad) throws ClubException {
 		if (actividad == null) {
 			throw new ClubException("ERROR: la actividad no puede ser nula");
 		}
-
 		int p = 0;
 		int i = 0;
 		while (i < ngrupos) {
@@ -114,27 +88,13 @@ public class ClubDeportivo {
 		return p;
 	}
 
-	/*
-	 * Se debería comprobar que el nombre de la actividad no sea nulo, por lo que
-	 * añadimos una sentencia IF que
-	 * cuando reciba un nombre nulo lance una excepción.
-	 * 
-	 * Se debería comprobar que el número de personas no sea negativo, por lo que
-	 * añadimos una sentencia IF que
-	 * cuando reciba un número negativo lance una excepción.
-	 * 
-	 * el cero
-	 */
-
 	public void matricular(String actividad, int npersonas) throws ClubException {
 		if (actividad == null) {
 			throw new ClubException("ERROR: la actividad no puede ser nula");
 		}
-
 		if (npersonas <= 0) {
 			throw new ClubException("ERROR: el numero de personas para matricular no debe ser negativo");
 		}
-
 		int plazas = plazasLibres(actividad);
 		if (plazas < npersonas) {
 			throw new ClubException("ERROR: no hay suficientes plazas libres para esa actividad en el club.");

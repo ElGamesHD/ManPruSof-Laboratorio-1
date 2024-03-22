@@ -1,3 +1,8 @@
+/**
+ * @author Eulogio Quemada Torres
+ * @author Alejandro Román Sánchez
+ */
+
 package clubdeportivo;
 
 public class ClubDeportivoAltoRendimiento extends ClubDeportivo {
@@ -22,10 +27,6 @@ public class ClubDeportivoAltoRendimiento extends ClubDeportivo {
 		this.incremento = incremento;
 	}
 
-	/*
-	 * El datos.length debería estar en el try por si datos es nulo.
-	 * Lo metemos dentro
-	 */
 	// El club de alto rendimiento tiene limitadas las plazas. Si el número de
 	// plazas que se recibe como parametro es mayor que el permitido,
 	// se establece su valor al maximo permitido por grupo para el club.

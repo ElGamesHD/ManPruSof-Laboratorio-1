@@ -1,3 +1,8 @@
+/**
+ * @author Eulogio Quemada Torres
+ * @author Alejandro Román Sánchez
+ */
+
 package clubdeportivo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ClubDeportivoAnyadirActividadTest {
+
     @Test
     @DisplayName("El método anyadirActividad debe crear y añadir correctamente el grupo al club deportivo.")
     public void anyadirActividad_ValidValues_ReturnsExpectedResult() throws ClubException {
@@ -28,7 +34,9 @@ public class ClubDeportivoAnyadirActividadTest {
         ClubDeportivo club = new ClubDeportivo(nombre);
         String[] datos = { "D4", "Tenis", "10", "5" };
 
-        assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
+        assertThrows(ClubException.class, () -> {
+            club.anyadirActividad(datos);
+        });
     }
 
     @Test
@@ -38,7 +46,9 @@ public class ClubDeportivoAnyadirActividadTest {
         ClubDeportivo club = new ClubDeportivo(nombre);
         String[] datos = { "D4", "Tenis", "10", "cinco", "10" };
 
-        assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
+        assertThrows(ClubException.class, () -> {
+            club.anyadirActividad(datos);
+        });
     }
 
     @Test
@@ -48,7 +58,9 @@ public class ClubDeportivoAnyadirActividadTest {
         ClubDeportivo club = new ClubDeportivo(nombre);
         String[] datos = { "D4", "Tenis", null, "5", "10" };
 
-        assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
+        assertThrows(ClubException.class, () -> {
+            club.anyadirActividad(datos);
+        });
     }
 
     @Test
@@ -58,7 +70,22 @@ public class ClubDeportivoAnyadirActividadTest {
         ClubDeportivo club = new ClubDeportivo(nombre);
         String[] datos = null;
 
-        assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
+        assertThrows(ClubException.class, () -> {
+            club.anyadirActividad(datos);
+        });
+    }
+
+    @Test
+    @DisplayName("El método anyadirActividad debe lanzar una excepción si el club está lleno y se intenta anñadir otro grupo")
+    public void anyadirActividad_ClubFull_ThrowsError() throws ClubException {
+        ClubDeportivo club = new ClubDeportivo("Club 1", 1);
+        Grupo grupo1 = new Grupo("Grupo 1", "Actividad 1", 10, 5, 5.0);
+        Grupo grupo2 = new Grupo("Grupo 2", "Actividad 2", 10, 5, 5.0);
+        club.anyadirActividad(grupo1);
+
+        assertThrows(ClubException.class, () -> {
+            club.anyadirActividad(grupo2);
+        });
     }
 
     @Test
@@ -68,7 +95,9 @@ public class ClubDeportivoAnyadirActividadTest {
         ClubDeportivo club = new ClubDeportivo(nombre);
         Grupo grupo = null;
 
-        assertThrows(ClubException.class, () -> club.anyadirActividad(grupo));
+        assertThrows(ClubException.class, () -> {
+            club.anyadirActividad(grupo);
+        });
     }
 
     @Test
@@ -78,11 +107,12 @@ public class ClubDeportivoAnyadirActividadTest {
         ClubDeportivo club = new ClubDeportivo(nombre);
         String codigo = "D4";
         String actividad = "Tenis";
-        int precio = 10;
+        double precio = 10;
         int plazas = 5;
         int maxPlazas = 10;
         Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
-        String expectedString = nombre + " --> [ (D4 - Tenis - 10.0 euros - P:10 - M:5) ]";
+        String expectedString = nombre + " --> [ (" + codigo + " - " + actividad + " - " + precio + " euros - P:"
+                + maxPlazas + " - M:" + plazas + ") ]";
 
         club.anyadirActividad(grupo);
         String toString = club.toString();
@@ -97,13 +127,14 @@ public class ClubDeportivoAnyadirActividadTest {
         ClubDeportivo club = new ClubDeportivo(nombre);
         String codigo = "D4";
         String actividad = "Tenis";
-        int precio = 10;
+        double precio = 10;
         int plazas = 5;
         int maxPlazas = 10;
         Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         int nplazas = 15;
         Grupo grupo2 = new Grupo(codigo, actividad, nplazas, plazas, precio);
-        String expectedString = nombre + " --> [ (D4 - Tenis - 10.0 euros - P:15 - M:5) ]";
+        String expectedString = nombre + " --> [ (" + codigo + " - " + actividad + " - " + precio + " euros - P:"
+                + nplazas + " - M:" + plazas + ") ]";
 
         club.anyadirActividad(grupo);
         club.anyadirActividad(grupo2);
