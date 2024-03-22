@@ -66,7 +66,6 @@ public class ClubDeportivoAnyadirActividadTest {
     public void anyadirActividad_IncorrectGroup_ThrowsError() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-
         Grupo grupo = null;
 
         assertThrows(ClubException.class, () -> club.anyadirActividad(grupo));
@@ -77,7 +76,12 @@ public class ClubDeportivoAnyadirActividadTest {
     public void anyadirActividad_NewGroup_ReturnsExpectedResult() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         String expectedString = nombre + " --> [ (D4 - Tenis - 10.0 euros - P:10 - M:5) ]";
 
         club.anyadirActividad(grupo);
@@ -91,8 +95,14 @@ public class ClubDeportivoAnyadirActividadTest {
     public void anyadirActividad_ExistingGroup_ReturnsExpectedResult() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
-        Grupo grupo2 = new Grupo("D4", "Tenis", 15, 5, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
+        int nplazas = 15;
+        Grupo grupo2 = new Grupo(codigo, actividad, nplazas, plazas, precio);
         String expectedString = nombre + " --> [ (D4 - Tenis - 10.0 euros - P:15 - M:5) ]";
 
         club.anyadirActividad(grupo);

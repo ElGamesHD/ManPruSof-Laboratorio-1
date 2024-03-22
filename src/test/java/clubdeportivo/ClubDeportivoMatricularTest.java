@@ -13,10 +13,16 @@ public class ClubDeportivoMatricularTest {
     public void matricular_noFreePlaces_ThrowsClubException() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 10, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 7;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
+        int personasMatricular = 5;
 
-        assertThrows(ClubException.class, () -> club.matricular("Tenis", 5));
+        assertThrows(ClubException.class, () -> club.matricular("Tenis", personasMatricular));
 
     }
 
@@ -26,12 +32,17 @@ public class ClubDeportivoMatricularTest {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
         int n = 3;
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
         int plazasExpected = 2;
 
-        club.matricular("Tenis", 3);
-        int plazasLibres = club.plazasLibres("Tenis");
+        club.matricular(actividad, n);
+        int plazasLibres = club.plazasLibres(actividad);
 
         assertEquals(plazasExpected, plazasLibres);
 
@@ -43,14 +54,20 @@ public class ClubDeportivoMatricularTest {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
         int n = 7;
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
-        Grupo grupo2 = new Grupo("D5", "Tenis", 10, 5, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
+        String codigo2 = "D3";
+        Grupo grupo2 = new Grupo(codigo2, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
         club.anyadirActividad(grupo2);
         int plazasExpected = 3;
 
-        club.matricular("Tenis", n);
-        int plazasLibres = club.plazasLibres("Tenis");
+        club.matricular(actividad, n);
+        int plazasLibres = club.plazasLibres(actividad);
 
         assertEquals(plazasExpected, plazasLibres);
     }
@@ -60,10 +77,16 @@ public class ClubDeportivoMatricularTest {
     public void matricular_noPerson_ReturnTrue() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
+        int personasMatricular = 0;
 
-        assertThrows(ClubException.class, () -> club.matricular("Tenis", 0));
+        assertThrows(ClubException.class, () -> club.matricular(actividad, personasMatricular));
     }
 
     @Test
@@ -72,14 +95,20 @@ public class ClubDeportivoMatricularTest {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
         int n = 3;
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
-        Grupo grupo2 = new Grupo("D3", "Tenis", 10, 5, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
+        String codigo2 = "D3";
+        Grupo grupo2 = new Grupo(codigo2, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
         club.anyadirActividad(grupo2);
         int plazasExpected = 7;
 
-        club.matricular("Tenis", n);
-        int plazasLibres = club.plazasLibres("Tenis");
+        club.matricular(actividad, n);
+        int plazasLibres = club.plazasLibres(actividad);
 
         assertEquals(plazasExpected, plazasLibres);
     }
@@ -89,10 +118,17 @@ public class ClubDeportivoMatricularTest {
     public void matricular_ActivityNull_ThrowsClubException() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
+        String actividadNull = null;
+        int personasMatricular = 5;
 
-        assertThrows(ClubException.class, () -> club.matricular(null, 5));
+        assertThrows(ClubException.class, () -> club.matricular(actividadNull, personasMatricular));
     }
 
     @Test
@@ -100,10 +136,16 @@ public class ClubDeportivoMatricularTest {
     public void matricular_NegativePeople_ThrowsClubException() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
+        int personasMatricular = -5;
 
-        assertThrows(ClubException.class, () -> club.matricular("Tenis", -5));
+        assertThrows(ClubException.class, () -> club.matricular(actividad, personasMatricular));
     }
 
     @Test
@@ -112,14 +154,21 @@ public class ClubDeportivoMatricularTest {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
         int n = 1;
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
-        Grupo grupo2 = new Grupo("D3", "Futbol", 10, 5, 10);
+        String codigo = "D4";
+        String actividad = "Tenis";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
+        String codigo2 = "D3";
+        String actividad2 = "Futbol";
+        Grupo grupo2 = new Grupo(codigo2, actividad2, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
         club.anyadirActividad(grupo2);
         int plazasExpected = 4;
 
-        club.matricular("Futbol", n);
-        int plazasLibres = club.plazasLibres("Futbol");
+        club.matricular(actividad2, n);
+        int plazasLibres = club.plazasLibres(actividad2);
 
         assertEquals(plazasExpected, plazasLibres);
     }

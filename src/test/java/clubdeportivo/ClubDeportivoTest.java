@@ -56,11 +56,11 @@ public class ClubDeportivoTest {
         int precio = 10;
         int plazas = 5;
         int maxPlazas = 10;
-        Grupo grupo = new Grupo(codigo, actividad, precio, plazas, maxPlazas);
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
         int plazasExpected = 5;
 
-        int plazasLibres = club.plazasLibres("Tenis");
+        int plazasLibres = club.plazasLibres(actividad);
 
         assertEquals(plazasExpected, plazasLibres);
     }
@@ -75,11 +75,12 @@ public class ClubDeportivoTest {
         int precio = 10;
         int plazas = 5;
         int maxPlazas = 10;
-        Grupo grupo = new Grupo(codigo, actividad, precio, plazas, maxPlazas);
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
         int plazasExpected = 0;
+        String actividadNoExiste = "Futbol";
 
-        int plazasLibres = club.plazasLibres("Futbol");
+        int plazasLibres = club.plazasLibres(actividadNoExiste);
 
         assertEquals(plazasExpected, plazasLibres);
     }
@@ -88,10 +89,16 @@ public class ClubDeportivoTest {
     public void plazasLibres_activityNull_ThrowsClubException() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
+        String actividad = "Tenis";
+        String codigo = "D4";
+        int precio = 10;
+        int plazas = 5;
+        int maxPlazas = 10;
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         club.anyadirActividad(grupo);
+        String actividadNull = null;
 
-        assertThrows(ClubException.class, () -> club.plazasLibres(null));
+        assertThrows(ClubException.class, () -> club.plazasLibres(actividadNull));
     }
 
     @Test
@@ -116,13 +123,13 @@ public class ClubDeportivoTest {
         int precio = 10;
         int plazas = 5;
         int maxPlazas = 10;
-        Grupo grupo = new Grupo(codigo, actividad, precio, plazas, maxPlazas);
+        Grupo grupo = new Grupo(codigo, actividad, maxPlazas, plazas, precio);
         String codigo2 = "D5";
         String actividad2 = "Tenis";
         int precio2 = 10;
         int plazas2 = 5;
         int maxPlazas2 = 10;
-        Grupo grupo2 = new Grupo(codigo2, actividad2, precio2, plazas2, maxPlazas2);
+        Grupo grupo2 = new Grupo(codigo2, actividad2, maxPlazas2, plazas2, precio2);
         club.anyadirActividad(grupo);
         club.anyadirActividad(grupo2);
         double expected = 100;
