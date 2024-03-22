@@ -7,54 +7,60 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ClubDeportivoMatricularTest {
-    
+
     @Test
     @DisplayName("El método matricular debe lanzar una excepción si no hay plazas libres suficientes.")
-    public void matricular_noFreePlaces_ThrowsClubException() throws ClubException{
+    public void matricular_noFreePlaces_ThrowsClubException() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 10, 10);
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 10, 10);
         club.anyadirActividad(grupo);
 
         assertThrows(ClubException.class, () -> club.matricular("Tenis", 5));
-        
+
     }
 
     @Test
     @DisplayName("El método matricular debe matricular correctamente en una actividad.")
-    public void matricular_FreePlaces_ReturnTrue() throws ClubException{
+    public void matricular_FreePlaces_ReturnTrue() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
+        int n = 3;
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
         club.anyadirActividad(grupo);
-
         int plazasExpected = 2;
+
         club.matricular("Tenis", 3);
-        assertEquals(plazasExpected, club.plazasLibres("Tenis"));
-        
+        int plazasLibres = club.plazasLibres("Tenis");
+
+        assertEquals(plazasExpected, plazasLibres);
+
     }
 
     @Test
     @DisplayName("El método matricular correctamente en una actividad con dos grupos.")
-    public void matricular_notEnoughPlacesInOneGroup_ReturnTrue() throws ClubException{
+    public void matricular_notEnoughPlacesInOneGroup_ReturnTrue() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
-        Grupo grupo2 = new Grupo("D5","Tenis", 10, 5, 10);
-        club.anyadirActividad(grupo);   
+        int n = 7;
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
+        Grupo grupo2 = new Grupo("D5", "Tenis", 10, 5, 10);
+        club.anyadirActividad(grupo);
         club.anyadirActividad(grupo2);
-
         int plazasExpected = 3;
-        club.matricular("Tenis", 7);
-        assertEquals(plazasExpected, club.plazasLibres("Tenis"));
+
+        club.matricular("Tenis", n);
+        int plazasLibres = club.plazasLibres("Tenis");
+
+        assertEquals(plazasExpected, plazasLibres);
     }
 
     @Test
     @DisplayName("El método matricular debe no debe matricular si no hay personas para matricular.")
-    public void matricular_noPerson_ReturnTrue() throws ClubException{
+    public void matricular_noPerson_ReturnTrue() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
         club.anyadirActividad(grupo);
 
         assertThrows(ClubException.class, () -> club.matricular("Tenis", 0));
@@ -62,36 +68,39 @@ public class ClubDeportivoMatricularTest {
 
     @Test
     @DisplayName("El método matricular debe no debe matricular si no hay personas para matricular.")
-    public void matricular_TwoGroupsOnlyUseOne_ReturnTrue() throws ClubException{
+    public void matricular_TwoGroupsOnlyUseOne_ReturnTrue() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
-        Grupo grupo2 = new Grupo("D3","Tenis", 10, 5, 10);
+        int n = 3;
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
+        Grupo grupo2 = new Grupo("D3", "Tenis", 10, 5, 10);
         club.anyadirActividad(grupo);
         club.anyadirActividad(grupo2);
-
         int plazasExpected = 7;
-        club.matricular("Tenis", 3);
-        assertEquals(plazasExpected, club.plazasLibres("Tenis"));
+
+        club.matricular("Tenis", n);
+        int plazasLibres = club.plazasLibres("Tenis");
+
+        assertEquals(plazasExpected, plazasLibres);
     }
 
     @Test
     @DisplayName("El método matricular debe lanzar una excepción si la actividad es nula.")
-    public void matricular_ActivityNull_ThrowsClubException() throws ClubException{
+    public void matricular_ActivityNull_ThrowsClubException() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
         club.anyadirActividad(grupo);
 
         assertThrows(ClubException.class, () -> club.matricular(null, 5));
     }
 
-    @Test 
+    @Test
     @DisplayName("El método matricular debe lanzar una excepción si el número de personas es negativo.")
-    public void matricular_NegativePeople_ThrowsClubException() throws ClubException{
+    public void matricular_NegativePeople_ThrowsClubException() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
         club.anyadirActividad(grupo);
 
         assertThrows(ClubException.class, () -> club.matricular("Tenis", -5));
@@ -99,16 +108,19 @@ public class ClubDeportivoMatricularTest {
 
     @Test
     @DisplayName("El método matricular debe matricular en la actividad correcta.")
-    public void matricular_goodDataWithTwoGroups_ReturnTrue() throws ClubException{
+    public void matricular_goodDataWithTwoGroups_ReturnTrue() throws ClubException {
         String nombre = "Club de Tenis";
         ClubDeportivo club = new ClubDeportivo(nombre);
-        Grupo grupo = new Grupo("D4","Tenis", 10, 5, 10);
-        Grupo grupo2 = new Grupo("D3","Futbol", 10, 5, 10);
+        int n = 1;
+        Grupo grupo = new Grupo("D4", "Tenis", 10, 5, 10);
+        Grupo grupo2 = new Grupo("D3", "Futbol", 10, 5, 10);
         club.anyadirActividad(grupo);
         club.anyadirActividad(grupo2);
-
         int plazasExpected = 4;
-        club.matricular("Futbol", 1);
-        assertEquals(plazasExpected, club.plazasLibres("Futbol"));
+
+        club.matricular("Futbol", n);
+        int plazasLibres = club.plazasLibres("Futbol");
+
+        assertEquals(plazasExpected, plazasLibres);
     }
 }
